@@ -1,0 +1,8 @@
+#display {
+  position: absolute;
+  border: 1px solid gray;
+}
+
+.green {
+  color: #008000
+}
