@@ -25,24 +25,32 @@ requirejs.config({
     }
 });
 
-require(["mds/display/DisplayController", "plugins/domReady", "paper", "jquery"],
-	function(DisplayController, domReady, paper, $) {
-		/*var esbWebClient = new EsbWebClient();
-		esbWebClient.connect();*/
-		
-		//paper.install(window);
-		
+require(["mds/display/DisplayController", "mds/utils", "plugins/domReady", "paper", "jquery"],
+	function(DisplayController, utils, domReady, paper, $) {		
 		domReady(function(){
 			paper.setup('display');
 			
-
-			with (paper) {
-				var dc = new DisplayController({controlPoint: new Point(0, 0)});
-				dc.drawFrame();
+			var number = 0;
+			var dc = new DisplayController({controlPoint: [0, 0]});
+			
+			$("#enterNumber").submit(function(event) {
+				var inputNumber = $('#number').val();
+				if (utils.isNumber(inputNumber)) {
+					try {
+						number = utils.repCommaToDot(inputNumber);
+						//dc.drawDisplay();
+						dc.drawNumber(number);
+					} catch (e) {
+						console.log(e);
+					}
+				}
 				
-				view.draw();
-			}
+				event.preventDefault();
+				return false;
+			});
+			
 		});
+
 	}
 );
 
