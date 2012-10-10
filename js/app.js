@@ -26,11 +26,12 @@ requirejs.config({
 });
 
 require(["mds/display/DisplayController", "mds/utils", "plugins/domReady", "paper", "jquery"],
-	function(DisplayController, utils, domReady, paper, $) {		
+	function(DisplayController, utils, domReady, paper, $) {
+		paper.install(window);
 		domReady(function(){
 			paper.setup('display');
 			
-			var number = 0;
+						var number = 0;
 			var dc = new DisplayController({controlPoint: [0, 0]});
 			
 			$("#enterNumber").submit(function(event) {
