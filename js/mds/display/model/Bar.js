@@ -3,6 +3,7 @@
  */
 
 define(function(require, exports, module) {
+	var paper = require('paper');
 	
 	/**
 	 * BarSymbol
@@ -13,18 +14,18 @@ define(function(require, exports, module) {
 	 * \/
 	 */
 	var Bar = module.exports = function(position) {
-		this.position = position;
+		this.position = new paper.Point(position);
 		return this.create();
 	};
 	
 	Bar.prototype.create = function() {
-		var barPath = new Path();
-		barPath.add(new Point(0, 0));
-		barPath.add(new Point(10, 10));
-		barPath.add(new Point(10, 90));
-		barPath.add(new Point(0, 100));
-		barPath.add(new Point(-10, 90));
-		barPath.add(new Point(-10, 10));
+		var barPath = new paper.Path();
+		barPath.add([0, 0]);
+		barPath.add([10, 10]);
+		barPath.add([10, 90]);
+		barPath.add([0, 100]);
+		barPath.add([-10, 90]);
+		barPath.add([-10, 10]);
 
 		barPath.closed = true;
 		

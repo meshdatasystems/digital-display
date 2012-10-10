@@ -3,6 +3,7 @@
  */
 
 define(function(require, exports, module) {
+	var paper = require('paper');
 	var Bar = require('mds/display/model/Bar');
 	
 	/**
@@ -35,8 +36,7 @@ define(function(require, exports, module) {
 		
 		
 		/* init - paperize */
-		this.position = new Point(this.position);
-		
+		this.position = new paper.Point(this.position);
 		return this.create();
 	};
 	
@@ -66,7 +66,7 @@ define(function(require, exports, module) {
 	}
 	
 	DigitNumber.prototype.buildNumber = function(description) {
-		var group = new Group();
+		var group = new paper.Group();
 		for (var i = 0, len = description.length; i < len; i++) {
 			group.addChild(this.transformBar(description[i], new Bar(this.position)));
 		}
@@ -76,8 +76,8 @@ define(function(require, exports, module) {
 	DigitNumber.prototype.transformBar = function(orientation, bar) {
 		var width = bar.bounds.width > bar.bounds.height ? bar.bounds.width : bar.bounds.height;
 		var height = bar.bounds.height > bar.bounds.width ? bar.bounds.width : bar.bounds.height;
-		var leftRightDistance = new Point(width/2, width/2);
-		var topBottomDistance = new Point(0, width);
+		var leftRightDistance = new paper.Point(width/2, width/2);
+		var topBottomDistance = new paper.Point(0, width);
 		leftRightDistance.length = leftRightDistance.length * (1 + (this.dilatation/100));
 		topBottomDistance.length = topBottomDistance.length * (1 + (this.dilatation/100));
 

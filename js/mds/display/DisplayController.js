@@ -3,6 +3,7 @@
  */
 
 define(function(require, exports, module) {
+	var paper = require('paper');
 
 	var DigitNumber = require('mds/display/model/DigitNumber');
 	var utils = require('mds/utils');
@@ -12,9 +13,9 @@ define(function(require, exports, module) {
 		this.numberGroup = false;
 		
 		/* init - paperize */
-		this.controlPoint = new Point(this.controlPoint);
+		this.controlPoint = new paper.Point(this.controlPoint);
 		//FF needs this
-		view.draw();
+		paper.view.draw();
 	};
 
 	DisplayController.prototype.drawDisplay = function() {
@@ -28,19 +29,19 @@ define(function(require, exports, module) {
 		if (this.numberGroup) {
 			this.numberGroup.removeChildren();
 		} else {
-			this.numberGroup = new Group();
+			this.numberGroup = new paper.Group();
 		}
 		
 		if (digitsArray.length == 1 && digitsArray[0].length == 1) {
 			var intNum = parseInt(digitsArray[0][0]);
 			// FIXME: size attribute is not handled
-			this.numberGroup.addChild(new DigitNumber(intNum, { position: view.center, dilatation: 8}));
+			this.numberGroup.addChild(new DigitNumber(intNum, { position: paper.view.center, dilatation: 2}));
 		} else {
 			alert("More than one digit integers and decimals are not supported yet!");
 		}
 		
 		this.numberGroup.fillColor = '#eb3d00';
 		
-		view.draw();
+		paper.view.draw();
 	}
 });
