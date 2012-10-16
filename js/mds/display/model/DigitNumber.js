@@ -4,7 +4,8 @@
 
 define(function(require, exports, module) {
 	var paper = require('paper');
-	var Bar = require('mds/display/model/Bar');
+	
+	var Bar = require('mds/display/model/Bar');	
 	
 	/**
 	 * DigitNumber built from Bars
@@ -13,7 +14,8 @@ define(function(require, exports, module) {
 	 * @param config Object
 	 */
 	var DigitNumber = module.exports = function(number, config) {
-		if (0 > number || number > 9) throw "Construct with number between 0 and 9."
+		if (number == "-") number = -1;
+		if (-1 > number || number > 9) throw "Construct with number between -1 and 9."
 		
 		this.number = number;
 		this.position = config.position || [0, 0];
@@ -22,6 +24,7 @@ define(function(require, exports, module) {
 		this.dilatation = config.dilatation || 2;
 		
 		/* Number Descriptors*/
+		this.prefix = ["MIDDLE"];
 		this.zero	= ["TOP", "TOPRIGHT", "BOTTOMRIGHT", "BOTTOM", "BOTTOMLEFT", "TOPLEFT"];
 		this.one	= ["TOPRIGHT", "BOTTOMRIGHT"];
 		this.two	= ["MIDDLE", "TOP", "TOPRIGHT", "BOTTOM", "BOTTOMLEFT"];
@@ -42,6 +45,8 @@ define(function(require, exports, module) {
 	
 	DigitNumber.prototype.create = function() {
 		switch(this.number) {
+			case -1:
+				return this.buildNumber(this.prefix);
 			case 0:
 				return this.buildNumber(this.zero);
 			case 1:
@@ -62,6 +67,8 @@ define(function(require, exports, module) {
 				return this.buildNumber(this.eight);
 			case 9:
 				return this.buildNumber(this.nine);
+			default:
+				throw "Value is not a number between -1 and 9!";
 		}
 	}
 	
